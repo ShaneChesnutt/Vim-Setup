@@ -30,6 +30,7 @@ set expandtab
 set laststatus=2
 set guifont=Source\ Code\ Pro\ Medium:h12
 set hlsearch
+set noswapfile
 
 set incsearch ignorecase smartcase
 
@@ -91,3 +92,11 @@ let g:instant_markdown_slow = 1
 set wildmenu
 set wildmode=list:longest,full
 set wildignore=*.class,*.git
+
+" gVim Setup
+"if has("unix")
+"  set guioptions-=m  "remove menu bar
+"  set guioptions-=T  "remove toolbar
+"  set guioptions-=r  "remove right-hand scroll bar
+"  set guioptions-=L  "remove left-hand scroll bar
+"endif
