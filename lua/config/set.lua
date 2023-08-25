@@ -26,3 +26,7 @@ vim.opt.signcolumn = "yes"
 vim.opt.colorcolumn = "80"
 
 vim.g.mapleader = ","
+
+vim.opt.cursorline = true
+
+vim.enhanced_diff_hl = true
