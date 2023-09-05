@@ -1,25 +1,31 @@
--- This file can be loaded by calling `lua require('plugins')` from your init.vim
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
 
--- Only required if you have packer configured as `opt`
-vim.cmd [[packadd packer.nvim]]
+-- Set leader key
+vim.g.mapleader = ","
 
-return require('packer').startup(function(use)
-  -- Packer can manage itself
-  use 'wbthomason/packer.nvim'
-
-  use {
-	  'nvim-telescope/telescope.nvim', tag = '0.1.0',
+local plugins = {
+  {
+	  'nvim-telescope/telescope.nvim', version = '0.1.0',
 	  -- or                            , branch = '0.1.x',
-	  requires = { {'nvim-lua/plenary.nvim'} }
-  }
-
-  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-
-  use {
+	  dependencies = { {'nvim-lua/plenary.nvim'} }
+  },
+  { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
+  { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+  {
     'VonHeikemen/lsp-zero.nvim',
     branch = 'v1.x',
-    requires = {
+    dependencies = {
       -- LSP Support
       {'neovim/nvim-lspconfig'},             -- Required
       {'williamboman/mason.nvim'},           -- Optional
@@ -37,66 +43,57 @@ return require('packer').startup(function(use)
       {'L3MON4D3/LuaSnip'},             -- Required
       {'rafamadriz/friendly-snippets'}, -- Optional
     }
-  }
-
-  use ({
+  },
+  {
     "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
     config = function()
       require("lsp_lines").setup()
     end,
-  })
-
-  use { "lvimuser/lsp-inlayhints.nvim", branch = "anticonceal" }
-
-  use {
+  },
+  { "lvimuser/lsp-inlayhints.nvim", branch = "anticonceal" },
+  {
     "danymat/neogen",
     config = function()
       require("neogen").setup()
     end,
-    requires = "nvim-treesitter/nvim-treesitter",
-  }
-
+    dependencies = "nvim-treesitter/nvim-treesitter",
+  },
   -- Debugger
-  use { "mfussenegger/nvim-dap" }
-  use { "rcarriga/cmp-dap" }
-  use { "theHamsta/nvim-dap-virtual-text" }
-  use { "mxsdev/nvim-dap-vscode-js", require = { "mfussenegger/nvim-dap" } }
-  use {
+  { "mfussenegger/nvim-dap" },
+  { "rcarriga/cmp-dap" },
+  { "theHamsta/nvim-dap-virtual-text" },
+  { "mxsdev/nvim-dap-vscode-js", dependencies = "mfussenegger/nvim-dap" },
+  {
     "microsoft/vscode-js-debug",
-    opt = true,
-    run = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out"
-  }
-
+    lazy = true,
+    build = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out"
+  },
   -- Test Runner
-  use({
+  {
     "nvim-neotest/neotest",
-    requires = {
+    dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
       "antoinemadec/FixCursorHold.nvim",
       "haydenmeade/neotest-jest",
       "olimorris/neotest-rspec"
     }
-  })
-  use { "vim-test/vim-test" }
-
+  },
+  { "vim-test/vim-test" },
   -- Status Line
-  use {
+  {
     'nvim-lualine/lualine.nvim',
-    requires = { 'kyazdani42/nvim-web-devicons', opts = true }
-  }
-
+    dependencies = { "nvim-tree/nvim-web-devicons", lazy = true }
+  },
   -- Color Scheme
-  use { "olimorris/onedarkpro.nvim" }
-
+  { "olimorris/onedarkpro.nvim" },
   -- TPope Plugins
-  use { 'tpope/vim-commentary' }
-  use { 'tpope/vim-fugitive' }
-  use { 'tpope/vim-surround' }
-  use { 'tpope/vim-projectionist' }
-  use { "tpope/vim-rails" }
-
-  use {
+  { 'tpope/vim-commentary' },
+  { 'tpope/vim-fugitive' },
+  { 'tpope/vim-surround' },
+  { 'tpope/vim-projectionist' },
+  { "tpope/vim-rails" },
+  {
     'stevearc/oil.nvim',
     config = function()
       require('oil').setup({
@@ -112,20 +109,18 @@ return require('packer').startup(function(use)
         },
       })
     end
-  }
-
-  use { "vimwiki/vimwiki",
+  },
+  { "vimwiki/vimwiki",
     config = function()
       vim.g.vimwiki_list = {
         { path = "~/workspace/personal/docs/" }
       }
       vim.g.vimwiki_global_ext = 0
     end
-  }
-
-  use {
+  },
+  {
     "pwntester/octo.nvim",
-    requires = {
+    dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope.nvim",
       "nvim-tree/nvim-web-devicons",
@@ -133,11 +128,12 @@ return require('packer').startup(function(use)
     config = function ()
       require"octo".setup()
     end
-  }
+  },
+  { "kburdett/vim-nuuid" },
+  { "voldikss/vim-floaterm" },
+  { "godlygeek/tabular" },
+  { "nathanaelkane/vim-indent-guides" },
+  { "lewis6991/gitsigns.nvim" },
+}
 
-  use { "kburdett/vim-nuuid" }
-  use { "voldikss/vim-floaterm" }
-  use { "godlygeek/tabular" }
-  use { "nathanaelkane/vim-indent-guides" }
-  use { "lewis6991/gitsigns.nvim" }
-end)
+require("lazy").setup(plugins, {})
