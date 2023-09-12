@@ -111,7 +111,7 @@ local plugins = {
     end
   },
   { "vimwiki/vimwiki",
-    config = function()
+    init = function()
       vim.g.vimwiki_list = {
         { path = "~/workspace/personal/docs/" }
       }
