@@ -132,8 +132,8 @@ local plugins = {
   { "kburdett/vim-nuuid" },
   { "voldikss/vim-floaterm" },
   { "godlygeek/tabular" },
-  { "nathanaelkane/vim-indent-guides" },
   { "lewis6991/gitsigns.nvim" },
+  { "lukas-reineke/indent-blankline.nvim" },
 }
 
 require("lazy").setup(plugins, {})
