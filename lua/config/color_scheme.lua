@@ -3,7 +3,7 @@ require("onedarkpro").setup({
     types = "NONE",
     methods = "NONE",
     numbers = "NONE",
-    strings = "NONE",
+    strings = "italic",
     comments = "italic",
     keywords = "bold,italic",
     constants = "NONE",
