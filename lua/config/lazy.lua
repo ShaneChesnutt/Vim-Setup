@@ -129,6 +129,15 @@ local plugins = {
       require"octo".setup()
     end
   },
+  {
+    "folke/which-key.nvim",
+    vent = "VeryLazy",
+    init = function()
+      vim.o.timeout = true
+      vim.o.timeoutlen = 300
+    end,
+    opts = {}
+  },
   { "kburdett/vim-nuuid" },
   { "voldikss/vim-floaterm" },
   { "godlygeek/tabular" },
