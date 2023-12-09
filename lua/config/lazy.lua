@@ -109,14 +109,6 @@ local plugins = {
       })
     end
   },
-  { "vimwiki/vimwiki",
-    init = function()
-      vim.g.vimwiki_list = {
-        { path = "~/workspace/personal/docs/" }
-      }
-      vim.g.vimwiki_global_ext = 0
-    end
-  },
   {
     "pwntester/octo.nvim",
     dependencies = {
