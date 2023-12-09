@@ -143,6 +143,11 @@ local plugins = {
   { "godlygeek/tabular" },
   { "lewis6991/gitsigns.nvim" },
   { "lukas-reineke/indent-blankline.nvim" },
+  { 'm4xshen/autoclose.nvim',
+    config = function()
+      require('autoclose').setup()
+    end
+  }
 }
 
 require("lazy").setup(plugins, {})
