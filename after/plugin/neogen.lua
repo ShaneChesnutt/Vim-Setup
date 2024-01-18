@@ -1,5 +1,7 @@
-require("neogen").setup({
-  languages = {
-    ["javascript.jsdoc"] = require("neogen.configurations.javascript")
+require('neogen').setup(
+  {
+    languages = {
+      ['javascript.jsdoc'] = require('neogen.configurations.javascript')
+    }
   }
-})
+)
