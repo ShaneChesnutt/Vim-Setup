@@ -78,9 +78,10 @@ local plugins = {
   { 'lvimuser/lsp-inlayhints.nvim', branch = 'anticonceal' },
   {
     'danymat/neogen',
-    config = function() require('neogen').setup() end,
-    dependencies = 'nvim-treesitter/nvim-treesitter'
-  }, -- Debugger
+    dependencies = 'nvim-treesitter/nvim-treesitter',
+    config = true
+  },
+  -- Debugger
   { 'mfussenegger/nvim-dap' },
   { 'rcarriga/cmp-dap' },
   { 'theHamsta/nvim-dap-virtual-text' },
