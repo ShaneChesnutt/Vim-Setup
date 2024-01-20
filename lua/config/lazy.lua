@@ -172,7 +172,8 @@ local plugins = {
       --   If not available, we use `mini` as the fallback
       'rcarriga/nvim-notify'
     }
-  }
+  },
+  { 'yamatsum/nvim-cursorline' }
 }
 
 require('lazy').setup(plugins, {})
