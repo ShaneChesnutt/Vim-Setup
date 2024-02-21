@@ -37,7 +37,7 @@ local plugins = {
     },
     opts = {
       workspaces = {
-        { name = 'personal', path = '~/workspace/personal/notes/vaults/personal' }
+        { name = 'personal', path = '~/workspace/personal/Notebook/' }
       }
 
       -- see below for full list of options 👇
