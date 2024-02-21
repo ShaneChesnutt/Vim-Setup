@@ -81,7 +81,6 @@ local plugins = {
     dependencies = 'nvim-treesitter/nvim-treesitter',
     config = true
   },
-  -- Debugger
   { 'mfussenegger/nvim-dap' },
   { 'rcarriga/cmp-dap' },
   { 'theHamsta/nvim-dap-virtual-text' },
@@ -90,7 +89,7 @@ local plugins = {
     'microsoft/vscode-js-debug',
     lazy = true,
     build = 'npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out'
-  }, -- Test Runner
+  },
   {
     'nvim-neotest/neotest',
     dependencies = {
@@ -101,12 +100,12 @@ local plugins = {
       'olimorris/neotest-rspec'
     }
   },
-  { 'vim-test/vim-test' }, -- Status Line
+  { 'vim-test/vim-test' },
   {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons', lazy = true }
-  }, -- Color Scheme
-  { 'olimorris/onedarkpro.nvim' }, -- TPope Plugins
+  },
+  { 'olimorris/onedarkpro.nvim' },
   { 'tpope/vim-commentary' },
   { 'tpope/vim-fugitive' },
   { 'tpope/vim-projectionist' },
