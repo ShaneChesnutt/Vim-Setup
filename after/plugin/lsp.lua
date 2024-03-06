@@ -1,129 +1,92 @@
-local lsp = require('lsp-zero')
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
-local lsp_inlayhints = require('lsp-inlayhints')
+local lsp_zero = require('lsp-zero')
 
-lsp.preset('recommended')
+lsp_zero.on_attach(function(client, bufnr)
+  local opts = { buffer = bufnr, remap = false }
 
-lsp.ensure_installed({ 'tsserver', 'eslint' })
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+  vim.keymap.set('n', '<C-h>', vim.lsp.buf.signature_help, opts)
+  vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, opts)
+  vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
+  vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+  vim.keymap.set('n', '<leader>ff', function()
+    vim.lsp.buf.format { async = true }
+  end, opts)
+  vim.keymap.set("n", "<leader>vd", vim.diagnostic.open_float, opts)
+  vim.keymap.set("n", "<leader>nd", vim.diagnostic.goto_next, opts)
+  vim.keymap.set("n", "<leader>pd", vim.diagnostic.goto_prev, opts)
+end)
 
-lsp.set_preferences(
-  {
-    set_lsp_keymaps = false -- set to false if you want to configure your own keybindings
-  }
-)
+lsp_zero.set_sign_icons({
+  error = '',
+  warn = '',
+  hint = '',
+  info = '',
+})
 
----@diagnostic disable-next-line: unused-local
-lsp.on_attach(
-  function(_client, bufnr)
-    local opts = { buffer = bufnr, remap = false }
+lsp_zero.format_on_save({
+  format_opts = {
+    async = false,
+    timeout_ms = 10000,
+  },
+  servers = {
+    ['tsserver'] = { 'javascript', 'typescript' },
+    ['lua_ls'] = { 'lua' },
+  },
+})
 
-    vim.keymap.set('n', 'gd', function() vim.lsp.buf.definition() end, opts)
-    vim.keymap.set('n', 'gr', function() vim.lsp.buf.references() end, opts)
-    vim.keymap.set('n', 'K', function() vim.lsp.buf.hover() end, opts)
-    vim.keymap.set(
-      'n', '<leader>ca', function() vim.lsp.buf.code_action() end, opts
-    )
-    vim.keymap.set('n', '<leader>rn', function() vim.lsp.buf.rename() end, opts)
-    vim.keymap
-      .set('i', '<C-h>', function() vim.lsp.buf.signature_help() end, opts)
-    vim.keymap
-      .set('n', '<leader>gh', function() lsp_inlayhints.toggle() end, opts)
-  end
-)
-
-lsp.configure(
-  'lua_ls', { settings = { Lua = { diagnostics = { globals = { 'vim' } } } } }
-)
-
-lsp.configure(
-  'tsserver', {
-    capabilities = capabilities,
-    on_attach = function(client, bufnr)
-      client.server_capabilities.documentFormattingProvider = false
-      client.server_capabilities.documentRangeFormattingProvider = false
-      lsp_inlayhints.on_attach(client, bufnr)
+require('mason').setup({})
+require('mason-lspconfig').setup({
+  ensure_installed = { 'tsserver', 'lua_ls' },
+  handlers = {
+    lsp_zero.default_setup,
+    lua_ls = function()
+      require('lspconfig').lua_ls.setup({
+        on_init = function(client)
+          local path = client.workspace_folders[1].name
+          if not vim.loop.fs_stat(path .. '/.luarc.json') and not vim.loop.fs_stat(path .. '/.luarc.jsonc') then
+            client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
+              Lua = {
+                runtime = {
+                  version = 'LuaJIT'
+                },
+                workspace = {
+                  checkThirdParty = false,
+                  library = {
+                    vim.env.VIMRUNTIME
+                  }
+                }
+              }
+            })
+          end
+          return true
+        end
+      })
     end,
-    settings = {
-      diagnostics = {
-        ignoredCodes = {
-          80001, -- Allow CommonJS modules
-          7016 -- Allow untyped modules
-        }
-      },
-      typescript = {
-        inlayhints = {
-          includeInlayParameterNameHints = 'all',
-          includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-          includeInlayFunctionParameterTypeHints = true,
-          includeInlayVariableTypeHints = true,
-          includeInlayVariableTypeHintsWhenTypeMatchesName = false,
-          includeInlayPropertyDeclarationTypeHints = true,
-          includeInlayFunctionLikeReturnTypeHints = true,
-          includeInlayEnumMemberValueHints = true
-        }
-      },
-      javascript = {
-        inlayhints = {
-          includeInlayParameterNameHints = 'all',
-          includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-          includeInlayFunctionParameterTypeHints = true,
-          includeInlayVariableTypeHints = true,
-          includeInlayVariableTypeHintsWhenTypeMatchesName = false,
-          includeInlayPropertyDeclarationTypeHints = true,
-          includeInlayFunctionLikeReturnTypeHints = true,
-          includeInlayEnumMemberValueHints = true
-        }
-      }
-    }
   }
-)
+})
 
-lsp.configure(
-  'solargraph', {
-    capabilities = capabilities,
-    filetypes = { 'ruby' },
-    settings = {
-      solargraph = {
-        diagnostics = true,
-        formatting = true,
-        folding = true,
-        checkGemVersion = false,
-        useBundler = true,
-        bundlePath = vim.fn.expand('~/.rbenv/shims/bundle')
-      }
-    },
-    on_attach = function(client)
-      if client.server_capabilities.documentRangeFormattingProvider then
-        vim.cmd(
-          [[
-      augroup LspFormatting
-        autocmd! * <buffer>
-        autocmd BufWritePre <buffer> lua vim.lsp.buf.format()
-      augroup END
-      ]]
-        )
-      end
-    end
-  }
-)
+local cmp = require('cmp')
+local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
-lsp.setup()
-lsp_inlayhints.setup()
+require('luasnip.loaders.from_vscode').lazy_load()
 
-vim.diagnostic.config(
-  {
-    virtual_text = false,
-    signs = true,
-    update_in_insert = false,
-    underline = true,
-    severity_sort = false,
-    float = true
-  }
-)
-
-local signs = { Error = '', Warn = '', Hint = '', Info = '' }
-
-for type, icon in pairs(signs) do
-  local hl = 'DiagnosticsSign' .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-end
+cmp.setup({
+  sources = {
+    { name = 'path' },
+    { name = 'nvim_lsp' },
+    { name = 'nvim_lua' },
+    { name = 'luasnip', keyword_length = 2 },
+    { name = 'buffer',  keyword_length = 3 },
+  },
+  formatting = lsp_zero.cmp_format({ details = false }),
+  mapping = cmp.mapping.preset.insert({
+    ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
+    ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    ['<C-Space>'] = cmp.mapping.complete(),
+  })
+})
