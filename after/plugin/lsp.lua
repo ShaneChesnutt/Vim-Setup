@@ -38,6 +38,11 @@ lsp_zero.format_on_save({
   },
 })
 
+vim.diagnostic.config({
+  virtual_text = false, -- Turn off inline diagnostics
+  severity_sort = true,
+})
+
 require('mason').setup({})
 require('mason-lspconfig').setup({
   ensure_installed = { 'tsserver', 'lua_ls' },
