@@ -31,3 +31,14 @@ vim.keymap.set('n', '<leader>p', '"+p')
 
 -- Toggle relative line numbers
 vim.keymap.set('n', '<leader>rl', ':set relativenumber!<CR>')
+
+-- Toggle conceal level
+vim.keymap.set(
+  'n', '<leader>cl', function()
+    if vim.o.conceallevel == 0 then
+      vim.o.conceallevel = 2
+    else
+      vim.o.conceallevel = 0
+    end
+  end, { desc = 'Toggle conceal level' }
+)
