@@ -1,25 +1,29 @@
 local lsp_zero = require('lsp-zero')
 
+function merge_opts(default_opts, opts)
+  return table.move(default_opts, 1, #default_opts, #opts, opts)
+end
+
 lsp_zero.on_attach(
   function(client, bufnr)
     local opts = { buffer = bufnr, remap = false }
 
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-    vim.keymap.set('n', '<C-h>', vim.lsp.buf.signature_help, opts)
-    vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, opts)
-    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
-    vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts)
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, merge_opts(opts, { desc = "LSP: Definition" }))
+    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, merge_opts(opts, { desc = "LSP: Declarations" }))
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, merge_opts(opts, { desc = "LSP: Description" }))
+    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, merge_opts(opts, { desc = "LSP: Implementations" }))
+    vim.keymap.set('n', 'gr', vim.lsp.buf.references, merge_opts(opts, { desc = "LSP: References" }))
+    vim.keymap.set('n', '<C-h>', vim.lsp.buf.signature_help, merge_opts(opts, { desc = "LSP: Signature help" }))
+    vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, merge_opts(opts, { desc = "LSP: Type definition" }))
+    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, merge_opts(opts, { desc = "LSP: Rename" }))
+    vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, merge_opts(opts, { desc = "LSP: Code action" }))
     vim.keymap.set(
       'n', '<leader>ff', function() vim.lsp.buf.format { async = true } end,
-      opts
+      merge_opts(opts, { desc = "LSP: Format buffer" })
     )
-    vim.keymap.set('n', '<leader>vd', vim.diagnostic.open_float, opts)
-    vim.keymap.set('n', '<leader>nd', vim.diagnostic.goto_next, opts)
-    vim.keymap.set('n', '<leader>pd', vim.diagnostic.goto_prev, opts)
+    vim.keymap.set('n', '<leader>vd', vim.diagnostic.open_float, merge_opts(opts, { desc = "LSP: Show diagnostics" }))
+    vim.keymap.set('n', '<leader>nd', vim.diagnostic.goto_next, merge_opts(opts, { desc = "LSP: Next diagnostic" }))
+    vim.keymap.set('n', '<leader>pd', vim.diagnostic.goto_prev, merge_opts(opts, { desc = "LSP: Prev diagnostic" }))
   end
 )
 
