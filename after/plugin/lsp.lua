@@ -51,7 +51,7 @@ vim.diagnostic.config(
 require('mason').setup({})
 require('mason-lspconfig').setup(
   {
-    ensure_installed = { 'tsserver', 'lua_ls' },
+    ensure_installed = { 'tsserver', 'lua_ls', 'solargraph' },
     handlers = {
       lsp_zero.default_setup,
       lua_ls = function()
@@ -60,9 +60,9 @@ require('mason-lspconfig').setup(
             on_init = function(client)
               local path = client.workspace_folders[1].name
               if not vim.loop.fs_stat(path .. '/.luarc.json') and
-                not vim.loop.fs_stat(path .. '/.luarc.jsonc') then
+                  not vim.loop.fs_stat(path .. '/.luarc.jsonc') then
                 client.config.settings = vim.tbl_deep_extend(
-                                           'force', client.config.settings, {
+                  'force', client.config.settings, {
                     Lua = {
                       runtime = { version = 'LuaJIT' },
                       workspace = {
@@ -71,7 +71,7 @@ require('mason-lspconfig').setup(
                       }
                     }
                   }
-                                         )
+                )
               end
               return true
             end
@@ -93,8 +93,14 @@ cmp.setup(
       { name = 'path' },
       { name = 'nvim_lsp' },
       { name = 'nvim_lua' },
-      { name = 'luasnip', keyword_length = 2 },
-      { name = 'buffer', keyword_length = 3 }
+      {
+        name = 'luasnip',
+        keyword_length = 2
+      },
+      {
+        name = 'buffer',
+        keyword_length = 3
+      }
     },
     formatting = lsp_zero.cmp_format({ details = false }),
     mapping = cmp.mapping.preset.insert(

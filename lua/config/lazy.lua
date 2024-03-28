@@ -30,10 +30,18 @@ local plugins = {
     -- or                            , branch = '0.1.x',
     dependencies = { { 'nvim-lua/plenary.nvim' } }
   },
-  { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
-  { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
-
-  { 'VonHeikemen/lsp-zero.nvim', branch = 'v3.x' },
+  {
+    'nvim-treesitter/nvim-treesitter',
+    build = ':TSUpdate'
+  },
+  {
+    'nvim-telescope/telescope-fzf-native.nvim',
+    build = 'make'
+  },
+  {
+    'VonHeikemen/lsp-zero.nvim',
+    branch = 'v3.x'
+  },
   { 'neovim/nvim-lspconfig' },
   { 'williamboman/mason.nvim' },
   { 'williamboman/mason-lspconfig.nvim' },
@@ -53,7 +61,10 @@ local plugins = {
   { 'mfussenegger/nvim-dap' },
   { 'rcarriga/cmp-dap' },
   { 'theHamsta/nvim-dap-virtual-text' },
-  { 'mxsdev/nvim-dap-vscode-js', dependencies = 'mfussenegger/nvim-dap' },
+  {
+    'mxsdev/nvim-dap-vscode-js',
+    dependencies = 'mfussenegger/nvim-dap'
+  },
   {
     'microsoft/vscode-js-debug',
     lazy = true,
@@ -104,7 +115,7 @@ local plugins = {
       'nvim-telescope/telescope.nvim',
       'nvim-tree/nvim-web-devicons'
     },
-    config = function() require'octo'.setup() end
+    config = function() require 'octo'.setup() end
   },
   {
     'kylechui/nvim-surround',
