@@ -1,1 +1,2 @@
-require('config')
+require("walnutt.config")
+require("walnutt.lazy")
