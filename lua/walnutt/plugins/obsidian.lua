@@ -44,13 +44,53 @@ return {
 		local keymap = vim.keymap
 
 		-- Key Mappings
-		keymap.set("n", "<leader>oc", obsidian.util.toggle_checkbox, { desc = "Obsidian: Check checkbox" })
-		keymap.set("n", "<leader>ot", "<cmd>ObsidianTemplate<CR>", { desc = "Obsidian: Insert templates" })
-		keymap.set("n", "<leader>oo", "<cmd>ObsidianOpen<CR>", { desc = "Obsidian: Open in App" })
-		keymap.set("n", "<leader>ob", "<cmd>ObsidianBacklinks<CR>", { desc = "Obsidian: Show backlinks" })
-		keymap.set("n", "<leader>ol", "<cmd>ObsidianLinks<CR>", { desc = "Obsidian: Show links" })
-		keymap.set("n", "<leader>on", "<cmd>ObsidianNew<CR>", { desc = "Obsidian: Create new note" })
-		keymap.set("n", "<leader>os", "<cmd>ObsidianSearch<CR>", { desc = "Obsidian: Search" })
-		keymap.set("n", "<leader>oq", "<cmd>ObsidianQuickSwitch<CR>", { desc = "Obsidian: Quick switch" })
+		keymap.set(
+			"n",
+			"<leader>oc",
+			obsidian.util.toggle_checkbox,
+			{ desc = "Obsidian: Check checkbox" }
+		)
+		keymap.set(
+			"n",
+			"<leader>ot",
+			"<cmd>ObsidianTemplate<CR>",
+			{ desc = "Obsidian: Insert templates" }
+		)
+		keymap.set(
+			"n",
+			"<leader>oo",
+			"<cmd>ObsidianOpen<CR>",
+			{ desc = "Obsidian: Open in App" }
+		)
+		keymap.set(
+			"n",
+			"<leader>ob",
+			"<cmd>ObsidianBacklinks<CR>",
+			{ desc = "Obsidian: Show backlinks" }
+		)
+		keymap.set(
+			"n",
+			"<leader>ol",
+			"<cmd>ObsidianLinks<CR>",
+			{ desc = "Obsidian: Show links" }
+		)
+		keymap.set(
+			"n",
+			"<leader>on",
+			"<cmd>ObsidianNew<CR>",
+			{ desc = "Obsidian: Create new note" }
+		)
+		keymap.set(
+			"n",
+			"<leader>os",
+			"<cmd>ObsidianSearch<CR>",
+			{ desc = "Obsidian: Search" }
+		)
+		keymap.set(
+			"n",
+			"<leader>oq",
+			"<cmd>ObsidianQuickSwitch<CR>",
+			{ desc = "Obsidian: Quick switch" }
+		)
 	end,
 }

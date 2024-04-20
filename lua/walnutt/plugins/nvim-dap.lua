@@ -22,7 +22,12 @@ return {
 
 		local keymap = vim.keymap
 
-		keymap.set("n", "<leader>b", "<cmd>lua require('dap').toggle_breakpoint()<cr>", {})
+		keymap.set(
+			"n",
+			"<leader>b",
+			"<cmd>lua require('dap').toggle_breakpoint()<cr>",
+			{}
+		)
 		keymap.set("n", "<leader>dc", "<cmd>lua require('dap').continue()<cr>", {})
 		keymap.set("n", "<leader>br", "<cmd>lua require('dap').repl.open()<cr>", {})
 		keymap.set("n", "<F5>", function()
@@ -43,7 +48,8 @@ return {
 
 		require("cmp").setup({
 			enabled = function()
-				return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or cmp_dap.is_dap_buffer()
+				return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
+					or cmp_dap.is_dap_buffer()
 			end,
 		})
 

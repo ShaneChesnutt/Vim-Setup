@@ -11,6 +11,11 @@ return {
 
 		local keymap = vim.keymap
 
-		keymap.set("n", "<Leader>cd", ":lua require('neogen').generate()<CR>", { noremap = true, silent = true })
+		keymap.set(
+			"n",
+			"<Leader>cd",
+			":lua require('neogen').generate()<CR>",
+			{ noremap = true, silent = true }
+		)
 	end,
 }

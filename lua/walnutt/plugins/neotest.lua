@@ -12,7 +12,8 @@ return {
 	event = { "BufReadPre", "BufNewFile" },
 	config = function()
 		local neotest = require("neotest")
-		local neotest_jest = require("neotest-jest")({ jestCommand = "npm test --" })
+		local neotest_jest =
+			require("neotest-jest")({ jestCommand = "npm test --" })
 
 		neotest_jest.filter_dir = function(name)
 			return name ~= "node_modules" and name ~= "__snapshots__"
@@ -50,7 +51,12 @@ return {
 			"<cmd>lua require('neotest').run.run(vim.fn.expand('%'))<cr>",
 			{ desc = "Neotest: Run file" }
 		)
-		keymap.set("n", "<leader>tn", "<cmd>lua require('neotest').run.run()<cr>", { desc = "Neotest: Run nearest" })
+		keymap.set(
+			"n",
+			"<leader>tn",
+			"<cmd>lua require('neotest').run.run()<cr>",
+			{ desc = "Neotest: Run nearest" }
+		)
 		keymap.set(
 			"n",
 			"<leader>td",

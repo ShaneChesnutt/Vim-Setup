@@ -14,12 +14,15 @@ vim.opt.rtp:prepend(lazypath)
 -- Set leader key
 vim.g.mapleader = ","
 
-require("lazy").setup({ { import = "walnutt.plugins" }, { import = "walnutt.plugins.lsp" } }, {
-	checker = {
-		enabled = true,
-		notify = false,
-	},
-	change_detection = {
-		notify = false,
-	},
-})
+require("lazy").setup(
+	{ { import = "walnutt.plugins" }, { import = "walnutt.plugins.lsp" } },
+	{
+		checker = {
+			enabled = true,
+			notify = false,
+		},
+		change_detection = {
+			notify = false,
+		},
+	}
+)

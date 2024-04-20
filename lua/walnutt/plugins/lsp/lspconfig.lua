@@ -36,7 +36,12 @@ return {
 			keymap.set("n", "<leader>gh", vim.lsp.buf.signature_help, opts)
 
 			opts.desc = "LSP: Show type definition"
-			keymap.set("n", "<leader>gt", "<cmd>Telescope lsp_type_definitions<CR>", opts)
+			keymap.set(
+				"n",
+				"<leader>gt",
+				"<cmd>Telescope lsp_type_definitions<CR>",
+				opts
+			)
 
 			opts.desc = "LSP: Rename"
 			keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
@@ -48,7 +53,12 @@ return {
 			keymap.set("n", "<leader>fo", vim.lsp.buf.format, opts)
 
 			opts.desc = "LSP: Show buffer diagnositics"
-			keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts)
+			keymap.set(
+				"n",
+				"<leader>D",
+				"<cmd>Telescope diagnostics bufnr=0<CR>",
+				opts
+			)
 
 			opts.desc = "LSP: Show line diagnositics"
 			keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts)
@@ -116,7 +126,8 @@ return {
 
 		-- Change the Diagnostic symbols in the sign column (gutter)
 		-- (not in youtube nvim video)
-		local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
+		local signs =
+			{ Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
 		for type, icon in pairs(signs) do
 			local hl = "DiagnosticSign" .. type
 			vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
