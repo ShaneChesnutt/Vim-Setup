@@ -1,4 +1,4 @@
 return {
-	"tpope/vim-commentary",
-	event = { "BufReadPre", "BufNewFile" },
+  "tpope/vim-commentary",
+  event = { "BufReadPre", "BufNewFile" },
 }

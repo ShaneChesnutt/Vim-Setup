@@ -1,4 +1,4 @@
 return {
-	"tpope/vim-rails",
-	event = { "BufReadPre", "BufNewFile" },
+  "tpope/vim-rails",
+  event = { "BufReadPre", "BufNewFile" },
 }

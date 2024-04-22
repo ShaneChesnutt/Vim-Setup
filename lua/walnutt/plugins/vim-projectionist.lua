@@ -1,4 +1,4 @@
 return {
-	"tpope/vim-projectionist",
-	event = { "BufReadPre", "BufNewFile" },
+  "tpope/vim-projectionist",
+  event = { "BufReadPre", "BufNewFile" },
 }
