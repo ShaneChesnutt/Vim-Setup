@@ -13,62 +13,74 @@ return {
 
     local keymap = vim.keymap
 
-    local opts = { noremap = true, silent = true }
-    local on_attach = function(client, bufnr)
-      opts.buffer = bufnr
+    vim.api.nvim_create_autocmd("LspAttach", {
+      group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+      callback = function(ev)
+        local opts = { buffer = ev.buf, silent = true }
 
-      opts.desc = "LSP: Show definitions"
-      keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
+        opts.desc = "LSP: Show definitions"
+        keymap.set(
+          "n",
+          "<leader>gd",
+          "<cmd>Telescope lsp_definitions<CR>",
+          opts
+        )
 
-      opts.desc = "LSP: Show declarations"
-      keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+        opts.desc = "LSP: Show declarations"
+        keymap.set("n", "<leader>gD", vim.lsp.buf.declaration, opts)
 
-      opts.desc = "LSP: Show description"
-      keymap.set("n", "K", vim.lsp.buf.hover, opts)
+        opts.desc = "LSP: Show description"
+        keymap.set("n", "K", vim.lsp.buf.hover, opts)
 
-      opts.desc = "LSP: Show implementation"
-      keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)
+        opts.desc = "LSP: Show implementation"
+        keymap.set(
+          "n",
+          "<leader>gi",
+          "<cmd>Telescope lsp_implementations<CR>",
+          opts
+        )
 
-      opts.desc = "LSP: Show references"
-      keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>", opts)
+        opts.desc = "LSP: Show references"
+        keymap.set("n", "<leader>gr", "<cmd>Telescope lsp_references<CR>", opts)
 
-      opts.desc = "LSP: Show signature help"
-      keymap.set("n", "<leader>gh", vim.lsp.buf.signature_help, opts)
+        opts.desc = "LSP: Show signature help"
+        keymap.set("n", "<leader>gh", vim.lsp.buf.signature_help, opts)
 
-      opts.desc = "LSP: Show type definition"
-      keymap.set(
-        "n",
-        "<leader>gt",
-        "<cmd>Telescope lsp_type_definitions<CR>",
-        opts
-      )
+        opts.desc = "LSP: Show type definition"
+        keymap.set(
+          "n",
+          "<leader>gt",
+          "<cmd>Telescope lsp_type_definitions<CR>",
+          opts
+        )
 
-      opts.desc = "LSP: Rename"
-      keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+        opts.desc = "LSP: Rename"
+        keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
 
-      opts.desc = "LSP: Code action"
-      keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
+        opts.desc = "LSP: Code action"
+        keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
 
-      opts.desc = "LSP: Format file"
-      keymap.set("n", "<leader>fo", vim.lsp.buf.format, opts)
+        opts.desc = "LSP: Format file"
+        keymap.set("n", "<leader>gf", vim.lsp.buf.format, opts)
 
-      opts.desc = "LSP: Show buffer diagnositics"
-      keymap.set(
-        "n",
-        "<leader>D",
-        "<cmd>Telescope diagnostics bufnr=0<CR>",
-        opts
-      )
+        opts.desc = "LSP: Show buffer diagnositics"
+        keymap.set(
+          "n",
+          "<leader>d",
+          "<cmd>Telescope diagnostics bufnr=0<CR>",
+          opts
+        )
 
-      opts.desc = "LSP: Show line diagnositics"
-      keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts)
+        opts.desc = "LSP: Show line diagnositics"
+        keymap.set("n", "<leader>D", vim.diagnostic.open_float, opts)
 
-      opts.desc = "LSP: Goto next diagnositic"
-      keymap.set("n", "<leader>nd", vim.diagnostic.goto_next, opts)
+        opts.desc = "LSP: Goto next diagnositic"
+        keymap.set("n", "<leader>dn", vim.diagnostic.goto_next, opts)
 
-      opts.desc = "LSP: Goto prev diagnositic"
-      keymap.set("n", "<leader>nD", vim.diagnostic.goto_prev, opts)
-    end
+        opts.desc = "LSP: Goto prev diagnositic"
+        keymap.set("n", "<leader>dp", vim.diagnostic.goto_prev, opts)
+      end,
+    })
 
     -- Used to enable autocompletion
     local capabilities = cmp_nvim_lsp.default_capabilities()
@@ -82,7 +94,6 @@ return {
       ["lua_ls"] = function()
         lspconfig["lua_ls"].setup({
           capabilities = capabilities,
-          on_attach = on_attach,
           settings = {
             Lua = {
               diagnostics = {
