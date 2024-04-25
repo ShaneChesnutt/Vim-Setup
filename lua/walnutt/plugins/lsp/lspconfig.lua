@@ -102,12 +102,19 @@ return {
         lspconfig["solargraph"].setup({
           capabilities = capabilities,
           filetypes = { "ruby" },
+          cmd = {
+            os.getenv("HOME") .. "/.rbenv/shims/solargraph",
+            "stdio",
+          },
           settings = {
             solargraph = {
               diagnostics = true,
               formatting = true,
               folding = true,
               checkGemVersion = false,
+              references = true,
+              rename = true,
+              completion = true,
               useBundler = true,
               bundlePath = vim.fn.expand("~/.rbenv/shims/bundle"),
             },
