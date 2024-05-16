@@ -120,7 +120,7 @@ return {
           settings = {
             solargraph = {
               diagnostics = true,
-              formatting = true,
+              -- formatting = true,
               folding = true,
               checkGemVersion = false,
               references = true,
