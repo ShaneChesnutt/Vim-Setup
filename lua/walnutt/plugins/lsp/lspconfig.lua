@@ -58,6 +58,14 @@ return {
           opts
         )
 
+        opts.desc = "LSP: Show document symbols"
+        keymap.set(
+          "n",
+          "<leader>gs",
+          "<cmd>Telescope lsp_document_symbols",
+          opts
+        )
+
         opts.desc = "LSP: Treesitter Symbols"
         keymap.set("n", "<leader>gT", "<cmd>Telescope treesitter<CR>", opts)
 
