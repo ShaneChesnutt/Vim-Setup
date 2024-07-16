@@ -53,9 +53,9 @@ return {
     )
     keymap.set(
       "n",
-      "<leader>fc",
+      "<leader>fw",
       builtin.grep_string,
-      { desc = "Telescope: Search Cursor String" }
+      { desc = "Telescope: Search Word" }
     )
   end,
 }
