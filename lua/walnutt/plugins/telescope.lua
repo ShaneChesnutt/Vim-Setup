@@ -57,5 +57,11 @@ return {
       builtin.grep_string,
       { desc = "Telescope: Search Word" }
     )
+    keymap.set(
+      "n",
+      "<leader>fc",
+      builtin.git_status,
+      { desc = "Telescope: Git Status" }
+    )
   end,
 }
