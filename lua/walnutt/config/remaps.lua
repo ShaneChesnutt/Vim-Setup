@@ -40,3 +40,6 @@ vim.keymap.set("n", "<leader>cl", function()
     vim.o.conceallevel = 0
   end
 end, { desc = "Toggle conceal level" })
+
+-- Toggle Terminal Input
+vim.keymap.set("t", "<ESC>", "<C-\\><C-n>", { noremap = true })
