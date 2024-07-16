@@ -11,6 +11,10 @@ return {
     local mason_lspconfig = require("mason-lspconfig")
     local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
+    vim.diagnostic.config({
+      virtual_text = false,
+    })
+
     local keymap = vim.keymap
 
     vim.api.nvim_create_autocmd("LspAttach", {
