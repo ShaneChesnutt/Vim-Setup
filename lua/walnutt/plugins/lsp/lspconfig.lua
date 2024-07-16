@@ -58,6 +58,9 @@ return {
           opts
         )
 
+        opts.desc = "LSP: Treesitter Symbols"
+        keymap.set("n", "<leader>gT", "<cmd>Telescope treesitter<CR>", opts)
+
         opts.desc = "LSP: Rename"
         keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
 
