@@ -11,6 +11,14 @@ return {
     local actions = require("telescope.actions")
 
     telescope.setup({
+      live_grep = {
+        file_ignore_patterns = { "node_modules", ".git" },
+        hidden = true,
+      },
+      find_files = {
+        file_ignore_patterns = { "node_modules", ".git" },
+        hidden = true,
+      },
       defaults = {
         mappings = {
           i = {
