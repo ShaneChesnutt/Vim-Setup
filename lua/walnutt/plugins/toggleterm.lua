@@ -3,21 +3,18 @@ return {
   version = "*",
   opts = {
     direction = "float",
-    close_on_exit = true, -- close the terminal window when the process exits
+    close_on_exit = true,
+    start_in_insert = true,
+    auto_scroll = true,
     float_opts = {
-      -- The border key is *almost* the same as 'nvim_open_win'
-      -- see :h nvim_open_win for details on borders however
-      -- the 'curved' border is a custom border type
-      -- not natively supported but implemented in this plugin.
       border = "curved",
-      -- like `size`, width, height, row, and col can be a number or function which is passed the current terminal
       width = function()
         return math.ceil(vim.o.columns * 0.85)
       end,
       height = function()
         return math.ceil(vim.o.lines * 0.85)
       end,
-      winblend = 20,
+      winblend = 15,
       title_pos = "center",
     },
   },
