@@ -24,12 +24,7 @@ return {
         local opts = { buffer = ev.buf, silent = true }
 
         opts.desc = "LSP: Show definitions"
-        keymap.set(
-          "n",
-          "<leader>gd",
-          "<cmd>Telescope lsp_definitions<CR>",
-          opts
-        )
+        keymap.set("n", "<leader>gd", "<cmd>FzfLua lsp_definitions<CR>", opts)
 
         opts.desc = "LSP: Show declarations"
         keymap.set("n", "<leader>gD", vim.lsp.buf.declaration, opts)
@@ -41,34 +36,24 @@ return {
         keymap.set(
           "n",
           "<leader>gi",
-          "<cmd>Telescope lsp_implementations<CR>",
+          "<cmd>FzfLua lsp_implementations<CR>",
           opts
         )
 
         opts.desc = "LSP: Show references"
-        keymap.set("n", "<leader>gr", "<cmd>Telescope lsp_references<CR>", opts)
+        keymap.set("n", "<leader>gr", "<cmd>FzfLua lsp_references<CR>", opts)
 
         opts.desc = "LSP: Show signature help"
         keymap.set("n", "<leader>gh", vim.lsp.buf.signature_help, opts)
 
         opts.desc = "LSP: Show type definition"
-        keymap.set(
-          "n",
-          "<leader>gt",
-          "<cmd>Telescope lsp_type_definitions<CR>",
-          opts
-        )
+        keymap.set("n", "<leader>gt", "<cmd>FzfLua lsp_typedefs<CR>", opts)
 
         opts.desc = "LSP: Show document symbols"
-        keymap.set(
-          "n",
-          "<leader>gs",
-          "<cmd>Telescope lsp_document_symbols",
-          opts
-        )
+        keymap.set("n", "<leader>gs", "<cmd>FzfLua lsp_document_symbols", opts)
 
         opts.desc = "LSP: Treesitter Symbols"
-        keymap.set("n", "<leader>gT", "<cmd>Telescope treesitter<CR>", opts)
+        keymap.set("n", "<leader>gT", "<cmd>FzfLua treesitter<CR>", opts)
 
         opts.desc = "LSP: Rename"
         keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
@@ -83,7 +68,15 @@ return {
         keymap.set(
           "n",
           "<leader>d",
-          "<cmd>Telescope diagnostics bufnr=0<CR>",
+          "<cmd>FzfLua diagnostics_document<CR>",
+          opts
+        )
+
+        opts.desc = "LSP: Show workspace diagnositics"
+        keymap.set(
+          "n",
+          "<leader>dw",
+          "<cmd>FzfLua diagnostics_workspace<CR>",
           opts
         )
 
