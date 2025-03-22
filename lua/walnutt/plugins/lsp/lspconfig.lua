@@ -18,10 +18,10 @@ return {
         local opts = { buffer = ev.buf, silent = true }
 
         opts.desc = "LSP: Show definitions"
-        keymap.set("n", "<leader>gd", "<cmd>FzfLua lsp_definitions<CR>", opts)
+        keymap.set("n", "<leader>ld", "<cmd>FzfLua lsp_definitions<CR>", opts)
 
         opts.desc = "LSP: Show declarations"
-        keymap.set("n", "<leader>gD", vim.lsp.buf.declaration, opts)
+        keymap.set("n", "<leader>lD", vim.lsp.buf.declaration, opts)
 
         opts.desc = "LSP: Show description"
         keymap.set("n", "K", vim.lsp.buf.hover, opts)
@@ -29,25 +29,25 @@ return {
         opts.desc = "LSP: Show implementation"
         keymap.set(
           "n",
-          "<leader>gi",
+          "<leader>li",
           "<cmd>FzfLua lsp_implementations<CR>",
           opts
         )
 
         opts.desc = "LSP: Show references"
-        keymap.set("n", "<leader>gr", "<cmd>FzfLua lsp_references<CR>", opts)
+        keymap.set("n", "<leader>lr", "<cmd>FzfLua lsp_references<CR>", opts)
 
         opts.desc = "LSP: Show signature help"
-        keymap.set("n", "<leader>gh", vim.lsp.buf.signature_help, opts)
+        keymap.set("n", "<leader>lh", vim.lsp.buf.signature_help, opts)
 
         opts.desc = "LSP: Show type definition"
-        keymap.set("n", "<leader>gt", "<cmd>FzfLua lsp_typedefs<CR>", opts)
+        keymap.set("n", "<leader>lt", "<cmd>FzfLua lsp_typedefs<CR>", opts)
 
         opts.desc = "LSP: Show document symbols"
-        keymap.set("n", "<leader>gs", "<cmd>FzfLua lsp_document_symbols", opts)
+        keymap.set("n", "<leader>ls", "<cmd>FzfLua lsp_document_symbols", opts)
 
         opts.desc = "LSP: Treesitter Symbols"
-        keymap.set("n", "<leader>gT", "<cmd>FzfLua treesitter<CR>", opts)
+        keymap.set("n", "<leader>lT", "<cmd>FzfLua treesitter<CR>", opts)
 
         opts.desc = "LSP: Rename"
         keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
@@ -56,7 +56,7 @@ return {
         keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
 
         opts.desc = "LSP: Format file"
-        keymap.set("n", "<leader>gf", vim.lsp.buf.format, opts)
+        keymap.set("n", "<leader>lf", vim.lsp.buf.format, opts)
 
         opts.desc = "LSP: Show buffer diagnositics"
         keymap.set(
