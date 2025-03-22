@@ -1,5 +1,5 @@
 vim.opt.nu = true
-vim.opt.relativenumber = true
+vim.opt.relativenumber = false
 
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
@@ -17,6 +17,9 @@ vim.opt.undofile = true
 
 vim.opt.hlsearch = true
 vim.opt.incsearch = true
+vim.opt.smartcase = true
+
+vim.opt.inccommand = "split"
 
 vim.opt.termguicolors = true
 
