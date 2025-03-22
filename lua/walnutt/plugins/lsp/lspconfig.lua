@@ -2,16 +2,10 @@ return {
   "neovim/nvim-lspconfig",
   event = { "BufReadPre", "BufNewFile" },
   dependencies = {
-    "saghen/blink.cmp",
     { "antosha417/nvim-lsp-file-operations", config = true },
     { "folke/neodev.nvim", opts = {} },
   },
   config = function()
-    local lspconfig = require("lspconfig")
-    local mason_lspconfig = require("mason-lspconfig")
-
-    local blink_cmp = require("blink.cmp")
-
     vim.diagnostic.config({
       virtual_text = false,
     })
@@ -88,66 +82,6 @@ return {
 
         opts.desc = "LSP: Goto prev diagnositic"
         keymap.set("n", "<leader>dp", vim.diagnostic.goto_prev, opts)
-      end,
-    })
-
-    -- Used to enable autocompletion
-    local capabilities = blink_cmp.get_lsp_capabilities()
-
-    mason_lspconfig.setup_handlers({
-      function(server_name)
-        lspconfig[server_name].setup({
-          capabilities = capabilities,
-        })
-      end,
-      ["lua_ls"] = function()
-        lspconfig["lua_ls"].setup({
-          capabilities = capabilities,
-          settings = {
-            Lua = {
-              diagnostics = {
-                globals = { "vim" },
-              },
-              workspace = {
-                library = {
-                  [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-                  [vim.fn.expand("config") .. "/lua"] = true,
-                },
-              },
-            },
-          },
-        })
-      end,
-      ["solargraph"] = function()
-        lspconfig["solargraph"].setup({
-          capabilities = capabilities,
-          filetypes = { "ruby" },
-          cmd = {
-            os.getenv("HOME") .. "/.rbenv/shims/solargraph",
-            "stdio",
-          },
-          settings = {
-            solargraph = {
-              diagnostics = true,
-              -- formatting = true,
-              folding = true,
-              checkGemVersion = false,
-              references = true,
-              rename = true,
-              completion = true,
-              useBundler = true,
-              bundlePath = vim.fn.expand("~/.rbenv/shims/bundle"),
-            },
-          },
-          on_attach = function()
-            vim.cmd([[
-            augroup LspFormatting
-              autocmd! * <buffer>
-              autocmd BufWritePre <buffer> lua vim.lsp.buf.format()
-            augroup END
-            ]])
-          end,
-        })
       end,
     })
 
