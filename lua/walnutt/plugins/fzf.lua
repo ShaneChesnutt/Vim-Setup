@@ -5,7 +5,14 @@ return {
   config = function()
     local fzf = require("fzf-lua")
     -- calling `setup` is optional for customization
-    fzf.setup({})
+    fzf.setup({
+      winopts = {
+        preview = {
+          vertical = "up:65%",
+          layout = "vertical",
+        },
+      },
+    })
 
     local keymap = vim.keymap
 
