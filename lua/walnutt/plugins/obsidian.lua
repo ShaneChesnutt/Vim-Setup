@@ -1,7 +1,7 @@
 return {
   "epwalsh/obsidian.nvim",
   version = "*", -- recommended, use latest release instead of latest commit
-  lazy = true,
+  lazy = false,
   ft = "markdown",
   dependencies = { "nvim-lua/plenary.nvim" },
   config = function()
@@ -34,9 +34,22 @@ return {
       end,
       templates = {
         subdir = "Templates",
-        date_format = "%Y-%m-%d",
+        date_format = "%m-%d-%Y",
         time_format = "%H:%M",
-        substitutions = {},
+        substitutions = {
+          date_add_1 = function()
+            return os.date("%m-%d-%Y", os.time() + 24 * 60 * 60)
+          end,
+          date_add_2 = function()
+            return os.date("%m-%d-%Y", os.time() + 48 * 60 * 60)
+          end,
+          date_add_3 = function()
+            return os.date("%m-%d-%Y", os.time() + 72 * 60 * 60)
+          end,
+          date_add_4 = function()
+            return os.date("%m-%d-%Y", os.time() + 96 * 60 * 60)
+          end,
+        },
       },
       ui = { enable = true },
     })
