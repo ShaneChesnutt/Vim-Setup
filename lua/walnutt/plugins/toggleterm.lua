@@ -14,7 +14,6 @@ return {
       height = function()
         return math.ceil(vim.o.lines * 0.85)
       end,
-      winblend = 15,
       title_pos = "center",
     },
   },
