@@ -12,14 +12,20 @@ return {
 
     telescope.setup({
       live_grep = {
-        file_ignore_patterns = { "node_modules", ".git" },
         hidden = true,
       },
       find_files = {
-        file_ignore_patterns = { "node_modules", ".git" },
         hidden = true,
       },
       defaults = {
+        file_ignore_patterns = { "node_modules/", "*.git", "*.min.js" },
+        layout_strategy = "vertical",
+        layout_config = {
+          vertical = {
+            width = 0.90,
+            height = 0.90,
+          },
+        },
         mappings = {
           i = {
             ["<C-k>"] = actions.move_selection_previous,
@@ -31,45 +37,5 @@ return {
     })
 
     telescope.load_extension("fzf")
-
-    -- local keymap = vim.keymap
-    -- local builtin = require("telescope.builtin")
-
-    -- keymap.set(
-    --   "n",
-    --   "<leader>ff",
-    --   builtin.find_files,
-    --   { desc = "Telescope: Find Files" }
-    -- )
-    -- keymap.set(
-    --   "n",
-    --   "<leader>fg",
-    --   builtin.git_files,
-    --   { desc = "Telescope: Search Git Files" }
-    -- )
-    -- keymap.set(
-    --   "n",
-    --   "<leader>fs",
-    --   builtin.live_grep,
-    --   { desc = "Telescope: Live Grep" }
-    -- )
-    -- keymap.set(
-    --   "n",
-    --   "<leader>fb",
-    --   builtin.buffers,
-    --   { desc = "Telescope: Search Buffers" }
-    -- )
-    -- keymap.set(
-    --   "n",
-    --   "<leader>fw",
-    --   builtin.grep_string,
-    --   { desc = "Telescope: Search Word" }
-    -- )
-    -- keymap.set(
-    --   "n",
-    --   "<leader>fc",
-    --   builtin.git_status,
-    --   { desc = "Telescope: Git Status" }
-    -- )
   end,
 }
