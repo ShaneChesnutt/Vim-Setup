@@ -21,7 +21,7 @@ return {
       overrides = function(colors) -- add/modify highlights
         local theme = colors.theme
         return {
-          NormalFloat = { bg = "none" },
+          NormalFloat = { bg = theme.ui.bg_m1 },
           FloatBorder = { bg = "none" },
           FloatTitle = { bg = "none" },
 
@@ -34,10 +34,10 @@ return {
           -- set their background accordingly if you wish to keep them dark and borderless
           LazyNormal = { bg = theme.ui.bg_m3, fg = theme.ui.fg_dim },
           MasonNormal = { bg = theme.ui.bg_m3, fg = theme.ui.fg_dim },
-          Pmenu = { fg = theme.ui.shade0, bg = theme.ui.bg_p1 }, -- add `blend = vim.o.pumblend` to enable transparency
-          PmenuSel = { fg = "NONE", bg = theme.ui.bg_p2 },
-          PmenuSbar = { bg = theme.ui.bg_m1 },
-          PmenuThumb = { bg = theme.ui.bg_p2 },
+          Pmenu = { fg = theme.ui.shade0, bg = theme.ui.bg_m2 }, -- add `blend = vim.o.pumblend` to enable transparency
+          PmenuSel = { fg = "NONE", bg = theme.ui.bg_p1 },
+          PmenuSbar = { bg = theme.ui.bg_p1 },
+          PmenuThumb = { bg = theme.ui.pmenu.bg_p1 },
           String = { fg = colors.palette.springGreen, italic = true },
         }
       end,
