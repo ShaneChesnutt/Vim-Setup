@@ -22,6 +22,8 @@ return {
       },
     })
 
+    local capabilities = cmp_nvim_lsp.default_capabilities()
+
     mason_lspconfig.setup({
       -- Servers to install
       ensure_installed = {
@@ -34,6 +36,80 @@ return {
       },
       -- Auto-install servers (with lspconfig)
       automatic_installation = true,
+      handlers = {
+        function(server_name)
+          lspconfig[server_name].setup({
+            capabilities = capabilities,
+          })
+        end,
+        ruby_lsp = function()
+          lspconfig.ruby_lsp.setup({
+            capabilities = capabilities,
+            cmd_env = { BUNDLE_GEMFILE = vim.fn.getenv("GLOBAL_GEMFILE") },
+          })
+        end,
+        rubocop = function()
+          lspconfig.rubocop.setup({
+            capabilities = capabilities,
+            cmd = { os.getenv("HOME") .. "/.rbenv/shims/rubocop", "--lsp" },
+            cmd_env = { BUNDLE_GEMFILE = vim.fn.getenv("GLOBAL_GEMFILE") },
+            opts = {
+              format = {
+                timeout_ms = 10000,
+              },
+            },
+          })
+        end,
+        solargraph = function()
+          lspconfig.solargraph.setup({
+            capabilities = capabilities,
+            filetypes = { "ruby" },
+            cmd = {
+              os.getenv("HOME") .. "/.rbenv/shims/solargraph",
+              "stdio",
+            },
+            settings = {
+              solargraph = {
+                diagnostics = true,
+                -- formatting = true,
+                folding = true,
+                checkGemVersion = false,
+                references = true,
+                rename = true,
+                completion = true,
+                useBundler = true,
+                bundlePath = vim.fn.expand("~/.rbenv/shims/bundle"),
+              },
+            },
+            on_attach = function()
+              vim.cmd([[
+            augroup LspFormatting
+              autocmd! * <buffer>
+              autocmd BufWritePre <buffer> lua vim.lsp.buf.format()
+            augroup END
+            ]])
+            end,
+          })
+        end,
+        lua_ls = function()
+          lspconfig.lua_ls.setup({
+            capabilities = capabilities,
+            settings = {
+              Lua = {
+                diagnostics = {
+                  globals = { "vim" },
+                },
+                workspace = {
+                  library = {
+                    [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+                    [vim.fn.expand("config") .. "/lua"] = true,
+                  },
+                },
+              },
+            },
+          })
+        end,
+      },
     })
 
     mason_tool_installer.setup({
@@ -43,83 +119,6 @@ return {
         "rubocop",
         "eslint_d",
       },
-    })
-
-    local capabilities = cmp_nvim_lsp.default_capabilities()
-
-    mason_lspconfig.setup_handlers({
-      function(server_name)
-        lspconfig[server_name].setup({
-          capabilities = capabilities,
-        })
-      end,
-      ruby_lsp = function()
-        lspconfig.ruby_lsp.setup({
-          capabilities = capabilities,
-          cmd_env = { BUNDLE_GEMFILE = vim.fn.getenv("GLOBAL_GEMFILE") },
-        })
-      end,
-      rubocop = function()
-        lspconfig.rubocop.setup({
-          capabilities = capabilities,
-          cmd = { os.getenv("HOME") .. "/.rbenv/shims/rubocop", "--lsp" },
-          cmd_env = { BUNDLE_GEMFILE = vim.fn.getenv("GLOBAL_GEMFILE") },
-          opts = {
-            format = {
-              timeout_ms = 10000,
-            },
-          },
-        })
-      end,
-      solargraph = function()
-        lspconfig.solargraph.setup({
-          capabilities = capabilities,
-          filetypes = { "ruby" },
-          cmd = {
-            os.getenv("HOME") .. "/.rbenv/shims/solargraph",
-            "stdio",
-          },
-          settings = {
-            solargraph = {
-              diagnostics = true,
-              -- formatting = true,
-              folding = true,
-              checkGemVersion = false,
-              references = true,
-              rename = true,
-              completion = true,
-              useBundler = true,
-              bundlePath = vim.fn.expand("~/.rbenv/shims/bundle"),
-            },
-          },
-          on_attach = function()
-            vim.cmd([[
-            augroup LspFormatting
-              autocmd! * <buffer>
-              autocmd BufWritePre <buffer> lua vim.lsp.buf.format()
-            augroup END
-            ]])
-          end,
-        })
-      end,
-      lua_ls = function()
-        lspconfig.lua_ls.setup({
-          capabilities = capabilities,
-          settings = {
-            Lua = {
-              diagnostics = {
-                globals = { "vim" },
-              },
-              workspace = {
-                library = {
-                  [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-                  [vim.fn.expand("config") .. "/lua"] = true,
-                },
-              },
-            },
-          },
-        })
-      end,
     })
   end,
 }
