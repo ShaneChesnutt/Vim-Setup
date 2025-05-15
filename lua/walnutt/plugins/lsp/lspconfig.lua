@@ -6,10 +6,6 @@ return {
     { "folke/neodev.nvim", opts = {} },
   },
   config = function()
-    vim.diagnostic.config({
-      virtual_text = false,
-    })
-
     local keymap = vim.keymap
 
     vim.api.nvim_create_autocmd("LspAttach", {
@@ -85,13 +81,17 @@ return {
       end,
     })
 
-    -- Change the Diagnostic symbols in the sign column (gutter)
-    -- (not in youtube nvim video)
-    local signs =
-      { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
-    for type, icon in pairs(signs) do
-      local hl = "DiagnosticSign" .. type
-      vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-    end
+    vim.diagnostic.config({
+      virtual_text = false,
+      underline = true,
+      signs = {
+        text = {
+          [vim.diagnostic.severity.INFO] = "",
+          [vim.diagnostic.severity.HINT] = "󰠠",
+          [vim.diagnostic.severity.WARN] = "",
+          [vim.diagnostic.severity.ERROR] = "",
+        },
+      },
+    })
   end,
 }
