@@ -8,7 +8,7 @@ return {
       undercurl = true, -- enable undercurls
       commentStyle = { italic = true },
       functionStyle = { bold = true },
-      keywordStyle = { bold = true, italic = true },
+      keywordStyle = { italic = true },
       statementStyle = { bold = true },
       typeStyle = {},
       transparent = false, -- do not set background color
