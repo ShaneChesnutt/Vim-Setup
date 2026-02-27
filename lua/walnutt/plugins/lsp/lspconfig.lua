@@ -40,7 +40,12 @@ return {
         keymap.set("n", "<leader>lt", "<cmd>FzfLua lsp_typedefs<CR>", opts)
 
         opts.desc = "LSP: Show document symbols"
-        keymap.set("n", "<leader>ls", "<cmd>FzfLua lsp_document_symbols", opts)
+        keymap.set(
+          "n",
+          "<leader>ls",
+          "<cmd>FzfLua lsp_document_symbols<CR>",
+          opts
+        )
 
         opts.desc = "LSP: Treesitter Symbols"
         keymap.set("n", "<leader>lT", "<cmd>FzfLua treesitter<CR>", opts)
@@ -57,7 +62,7 @@ return {
         opts.desc = "LSP: Show buffer diagnositics"
         keymap.set(
           "n",
-          "<leader>d",
+          "<leader>db",
           "<cmd>FzfLua diagnostics_document<CR>",
           opts
         )
