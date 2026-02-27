@@ -26,5 +26,20 @@ return {
         enabled = false,
       },
     })
+
+    local keymap = vim.keymap
+
+    keymap.set(
+      "n",
+      "<leader>nd",
+      "<cmd>NoiceDismiss<CR>",
+      { desc = "Noice: Dismiss" }
+    )
+    keymap.set(
+      "n",
+      "<leader>nr",
+      "<cmd>NoiceDisable<CR><cmd>NoiceEnable<CR>",
+      { desc = "Noice: Reset" }
+    )
   end,
 }
