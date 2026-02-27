@@ -33,3 +33,8 @@ vim.g.mapleader = ","
 vim.opt.cursorline = true
 
 vim.enhanced_diff_hl = true
+
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "vim.treesitter.foldexpr()"
+vim.opt.foldenable = true
+vim.opt.foldlevelstart = 99
