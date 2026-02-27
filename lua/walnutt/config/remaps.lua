@@ -41,3 +41,19 @@ end, { desc = "Toggle conceal level" })
 
 -- Toggle Terminal Input
 vim.keymap.set("t", "<ESC>", "<C-\\><C-n>", { noremap = true })
+
+-- Copy relative filepath
+vim.keymap.set(
+  "n",
+  "<leader>fp",
+  ":let @+=expand('%:.')<CR>",
+  { desc = "Copy relative filepath" }
+)
+
+-- Copy relative filepath with line number
+vim.keymap.set(
+  "n",
+  "<leader>fl",
+  ":let @+=expand('%:.').':'.line('.')<CR>",
+  { desc = "Copy relative filepath with line number" }
+)
