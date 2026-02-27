@@ -31,7 +31,7 @@ return {
         "html",
         "cssls",
         "lua_ls",
-        "solargraph",
+        -- "solargraph",
         "ruby_lsp",
       },
       -- Auto-install servers (with lspconfig)
@@ -46,6 +46,11 @@ return {
           lspconfig.ruby_lsp.setup({
             capabilities = capabilities,
             cmd_env = { BUNDLE_GEMFILE = vim.fn.getenv("GLOBAL_GEMFILE") },
+            cmd = { os.getenv("HOME") .. "/.rbenv/shims/ruby_lsp" },
+            filetypes = { "ruby", "eruby" },
+            root_dir = function()
+              return vim.loop.cwd()
+            end,
           })
         end,
         rubocop = function()
@@ -60,50 +65,25 @@ return {
             },
           })
         end,
-        solargraph = function()
-          lspconfig.solargraph.setup({
-            capabilities = capabilities,
-            filetypes = { "ruby" },
-            cmd = {
-              os.getenv("HOME") .. "/.rbenv/shims/solargraph",
-              "stdio",
-            },
-            settings = {
-              solargraph = {
-                diagnostics = true,
-                -- formatting = true,
-                folding = true,
-                checkGemVersion = false,
-                references = true,
-                rename = true,
-                completion = true,
-                useBundler = true,
-                bundlePath = vim.fn.expand("~/.rbenv/shims/bundle"),
-              },
-            },
-            on_attach = function()
-              vim.cmd([[
-            augroup LspFormatting
-              autocmd! * <buffer>
-              autocmd BufWritePre <buffer> lua vim.lsp.buf.format()
-            augroup END
-            ]])
-            end,
-          })
-        end,
         lua_ls = function()
           lspconfig.lua_ls.setup({
             capabilities = capabilities,
             settings = {
               Lua = {
+                runtime = {
+                  version = "LuaJIT",
+                },
                 diagnostics = {
-                  globals = { "vim" },
+                  globals = {
+                    "vim",
+                    "require",
+                  },
                 },
                 workspace = {
-                  library = {
-                    [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-                    [vim.fn.expand("config") .. "/lua"] = true,
-                  },
+                  library = vim.api.nvim_get_runtime_file("", true),
+                },
+                telemetry = {
+                  enable = false,
                 },
               },
             },
